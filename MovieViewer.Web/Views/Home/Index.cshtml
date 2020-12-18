@@ -1,0 +1,41 @@
+﻿@model IEnumerable<MovieViewer.Web.Models.MovieDto>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<h1 class="display-4 mb-4 text-center">Movies</h1>
+<table class="table">
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Grade</th>
+        <th>Vote</th>
+    </tr>
+    @foreach (var movie in Model)
+    {
+        <tr>
+            <td>
+                @movie.Title
+            </td>
+            <td>
+                @movie.Description
+            </td>
+            <td>
+                @movie.Grade
+            </td>
+            <td style="width: 400px;">
+                <form asp-controller="Home" asp-action="Vote">
+                    @for (int i = 0; i <= 10; i++)
+                    {
+                        <input type="radio" name="vote" value="@i" />
+                        <input type="hidden" name="movieId" value="@movie.Id" />
+                        <label for="vote">@i</label>
+                    }
+                    <br />
+                    <input id="@movie.Id" type="submit" value="Vote" />
+                </form>
+            </td>
+        </tr>
+    }
+</table>
